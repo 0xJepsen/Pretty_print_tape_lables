@@ -1,16 +1,31 @@
-Server = input("Enter chopin, bach, or parsons")
-# Chopin - 6
-# Bach - 4
-# Parsons - 7
+import datetime
+
+
+# print('Example schedule: /usr/local/dumps/conf/bach')
+# fileName = input("Enter backup schedule filename: ")
+# startDate = input("Enter begin date (Example: Jan 01 1992): ")
+startDate = 'Jan 01 1992'
+# numberOfPages = input("Enter Number of pages (of 6 labels each): ")
+# outputFileName = input("Enter output file name: ")
+# Server = fileName.split('/')[-1]
+# print(Server)
+
+startDateNum = datetime.datetime.strptime(startDate, '%b %d %Y')
+print(startDateNum)
+formatedStartDate = startDateNum.strftime('%a %d %b %y')
+print(formatedStartDate)
+Server = 'chopin'
+
+tdelta = datetime.timedelta(days=1)
 
 if (Server=='chopin'):
     print('+--------------------------------------+--------------------------------------+')
     print('|                                      |                                      |')
-    print('|  Day 00 Month 00 on Chopin           |  Day 00 Month 00 on Chopin           |')
+    print('|  {} Chopin                |  {} Chopin                |').format(formatedStartDate,formatedStartDate)
     print('|                                      |                                      |')
     print('|<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>|<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>|')
     print('|                                      |                                      |')
-    print('|  Day 00 Month 00 on Chopin           |  Day 00 Month 00 on Chopin           |')
+    print('|  {} Chopin                |  {} Chopin                |').format(formatedStartDate,formatedStartDate)
     print('|                                      |                                      |')
     print('|  Zero Dumps:                         |  Zero Dumps:                         |')
     print('|                                      |                                      |')
@@ -24,14 +39,16 @@ if (Server=='chopin'):
     print('|                                      |                                      |')
     print('+--------------------------------------+--------------------------------------+')
 
+
+
 elif (Server=='bach'):
     print('+--------------------------------------+--------------------------------------+')
     print('|                                      |                                      |')
-    print('|  Day 00 Month 00 on Bach             |  Day 00 Month 00 on Bach             |')
+    print('|  {} Bach                  |  {} Bach                  |').format(formatedStartDate,formatedStartDate)
     print('|                                      |                                      |')
     print('|<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>|<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>|')
     print('|                                      |                                      |')
-    print('|  Day 00 Month 00 on Chopin           |  Day 00 Month 00 on Chopin           |')
+    print('|  {} Bach                  |  {} Bach                  |').format(formatedStartDate,formatedStartDate)
     print('|                                      |                                      |')
     print('|  Zero Dumps:                         |  Zero Dumps:                         |')
     print('|                                      |                                      |')
@@ -48,11 +65,11 @@ elif (Server=='bach'):
 elif (Server=='parsons'):
     print('+--------------------------------------+--------------------------------------+')
     print('|                                      |                                      |')
-    print('|  Day 00 Month 00 on Parsons          |  Day 00 Month 00 on Parsons          |')
+    print('|  {} Parsons               |  {} Parsons               |').format(formatedStartDate,formatedStartDate)
     print('|                                      |                                      |')
     print('|<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>|<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>|')
     print('|                                      |                                      |')
-    print('|  Day 00 Month 00 on Chopin           |  Day 00 Month 00 on Chopin           |')
+    print('|  {} Parsons               |  {} Parsons               |').format(formatedStartDate,formatedStartDate)
     print('|                                      |                                      |')
     print('|  Zero Dumps:                         |  Zero Dumps:                         |')
     print('|                                      |                                      |')
