@@ -13,7 +13,7 @@ startDate = 'Jan 01 1992'
 startDateNum = datetime.datetime.strptime(startDate, '%b %d %Y')
 print(startDateNum)
 formatedStartDate = startDateNum.strftime('%a %d %b %y')
-print(formatedStartDate)
+startDay = formatedStartDate.split(' ')[0]
 Server = 'chopin'
 
 tdelta = datetime.timedelta(days=1)
