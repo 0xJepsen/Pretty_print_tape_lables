@@ -2,12 +2,14 @@ import datetime
 
 
 print('Example schedule: /usr/local/dumps/conf/bach')
-fileName = raw_input("Enter backup schedule filename: ")
-startDate = raw_input("Enter begin date (Example: Jan 01 1992): ")
-# startDate = 'Jan 01 1992'
-# numberOfPages = 3
-numberOfPages = input("Enter Number of pages (of 6 labels each): ")
-outputFileName = raw_input("Enter output file name: ")
+# fileName = raw_input("Enter backup schedule filename: ")
+# startDate = raw_input("Enter begin date (Example: Jan 01 1992): ")
+startDate = 'Jan 01 1992'
+numberOfPages = 3
+fileName = 'conf/chopin'
+# numberOfPages = input("Enter Number of pages (of 6 labels each): ")
+# outputFileName = raw_input("Enter output file name: ")
+outputFileName = 'test.txt'
 Server = fileName.split('/')[-1]
 # print(Server)
 data = []
@@ -25,19 +27,23 @@ formatedOrderedDays = [day.strftime('%a %d %b %y') for day in orderedDays]
 
 # reading the configuration file into list of lines and cleaning newline chars
 lines = []
-with open("conf_bach") as f:
+with open(fileName) as f:
     content = f.readlines()
     for line in content:
         lines.append(line.split(' '))
     for line in lines:
         line[-1] = line[-1].strip()
-        for infoindex in line:
-            if infoindex == '':
-                line.pop(line.index(infoindex))
+        while("" in line) :
+            line.remove("")
+        # for infoindex in line:
+        #     print(infoindex)
+        #     if infoindex == '':
+        #         line.pop(line.index(infoindex))
 
 # Absstacting schedules into a list
 schedules = []
 for line in lines:
+    print(line)
     schedules.append(line[5])
 # helper
 def list_duplicates_of(seq,item):
@@ -70,8 +76,6 @@ daySchedule = {
 }
 
 
-
-
 data.append(Server)
 data.append(formatedOrderedDays)
 
@@ -97,16 +101,15 @@ for day in data[1]:
             if line[5] == info:
                 dayZeroDumps.append(line[6] + ' ' + line[7])
     zeroDumps.append(dayZeroDumps)
-
+print(zeroDumps)
 for dump in zeroDumps:
-    if len(dump) != 4:
-        dump.append('                         ')
+    if len(dump) < 4:
+        while len(dump) < 4:
+            dump.append('                                 ')
 data.append(zeroDumps)
 
-
-
 # Padding for dumps
-dumpLineLength = len('                         ')
+dumpLineLength = len('                             ')
 for index in range(len(data[2])):
     for jdex in range(len(data[2][index])):
         while len(data[2][index][jdex]) < dumpLineLength:
@@ -129,10 +132,10 @@ for i in range(totalDays -1):
         '|  {} {}               |  {} {}               |\n'.format(data[1][i],data[0],data[1][i+1],data[0]),
         '|                                      |                                      |\n',
         '|  Zero Dumps:                         |  Zero Dumps:                         |\n',
-        '|    {}         |    {}         |\n'.format(data[2][i][0],data[2][i+1][0]),
-        '|    {}         |    {}         |\n'.format(data[2][i][1],data[2][i+1][1]),
-        '|    {}         |    {}         |\n'.format(data[2][i][2],data[2][i+1][2]),
-        '|    {}         |    {}         |\n'.format(data[2][i][3],data[2][i+1][3]),
+        '|    {}     |    {}     |\n'.format(data[2][i][0],data[2][i+1][0]),
+        '|    {}     |    {}     |\n'.format(data[2][i][1],data[2][i+1][1]),
+        '|    {}     |    {}     |\n'.format(data[2][i][2],data[2][i+1][2]),
+        '|    {}     |    {}     |\n'.format(data[2][i][3],data[2][i+1][3]),
         '|                                      |                                      |\n',
         '|                                      |                                      |\n',
         '|                                      |                                      |\n',
