@@ -1,0 +1,15 @@
+parsons /dev/nst0 0  0  128 1111011 parsons /
+parsons /dev/nst0 0  0  128 1101111 parsons /s/parsons/a
+parsons /dev/nst0 0  0  128 1011111 parsons /s/parsons/b
+parsons /dev/nst0 0  0  128 0111111 parsons /s/parsons/c
+parsons /dev/nst0 0  0  128 1111110 parsons /s/parsons/d
+parsons /dev/nst0 0  0  128 1111101 parsons /s/parsons/e
+parsons /dev/nst0 0  0  128 1111011 parsons /s/parsons/f
+parsons /dev/nst0 0  0  128 1110111 parsons /s/parsons/g
+parsons /dev/nst0 0  0  128 1101111 parsons /s/parsons/h
+parsons /dev/nst0 0  0  128 1011111 parsons /s/parsons/i
+parsons /dev/nst0 0  0  128 0111111 parsons /s/parsons/j
+parsons /dev/nst0 0  0  128 1111110 parsons /s/parsons/k
+parsons /dev/nst0 0  0  128 1111101 parsons /s/parsons/l
+parsons /dev/nst0 0  0  128 1111011 parsons /s/parsons/m
+parsons /dev/nst0 0  0  128 1110111 parsons /s/parsons/n

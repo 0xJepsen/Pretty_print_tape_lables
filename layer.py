@@ -2,14 +2,12 @@ import datetime
 
 
 print('Example schedule: /usr/local/dumps/conf/bach')
-# fileName = raw_input("Enter backup schedule filename: ")
-# startDate = raw_input("Enter begin date (Example: Jan 01 1992): ")
+fileName = raw_input("Enter backup schedule filename: ")
+startDate = raw_input("Enter begin date (Example: Jan 01 1992): ")
 startDate = 'Jan 01 1992'
-numberOfPages = 3
-fileName = 'conf/chopin'
-# numberOfPages = input("Enter Number of pages (of 6 labels each): ")
-# outputFileName = raw_input("Enter output file name: ")
-outputFileName = 'test.txt'
+fileName = 'conf/bach'
+numberOfPages = input("Enter Number of pages (of 6 labels each): ")
+outputFileName = raw_input("Enter output file name: ")
 Server = fileName.split('/')[-1]
 # print(Server)
 data = []
@@ -35,15 +33,10 @@ with open(fileName) as f:
         line[-1] = line[-1].strip()
         while("" in line) :
             line.remove("")
-        # for infoindex in line:
-        #     print(infoindex)
-        #     if infoindex == '':
-        #         line.pop(line.index(infoindex))
 
 # Absstacting schedules into a list
 schedules = []
 for line in lines:
-    print(line)
     schedules.append(line[5])
 # helper
 def list_duplicates_of(seq,item):
@@ -101,11 +94,10 @@ for day in data[1]:
             if line[5] == info:
                 dayZeroDumps.append(line[6] + ' ' + line[7])
     zeroDumps.append(dayZeroDumps)
-print(zeroDumps)
 for dump in zeroDumps:
     if len(dump) < 4:
         while len(dump) < 4:
-            dump.append('                                 ')
+            dump.append('                             ')
 data.append(zeroDumps)
 
 # Padding for dumps
@@ -121,29 +113,57 @@ while len(data[0]) < serverLength:
     data[0] += ' '
 
 count = 0
-for i in range(totalDays -1):
-    if (i%2==0):
-        lines = ['+--------------------------------------+--------------------------------------+\n',
-        '|                                      |                                      |\n',
-        '|  {} {}               |  {} {}               |\n'.format(data[1][i],data[0],data[1][i+1],data[0]),
-        '|                                      |                                      |\n',
-        '|<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>|<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>|\n',
-        '|                                      |                                      |\n',
-        '|  {} {}               |  {} {}               |\n'.format(data[1][i],data[0],data[1][i+1],data[0]),
-        '|                                      |                                      |\n',
-        '|  Zero Dumps:                         |  Zero Dumps:                         |\n',
-        '|    {}     |    {}     |\n'.format(data[2][i][0],data[2][i+1][0]),
-        '|    {}     |    {}     |\n'.format(data[2][i][1],data[2][i+1][1]),
-        '|    {}     |    {}     |\n'.format(data[2][i][2],data[2][i+1][2]),
-        '|    {}     |    {}     |\n'.format(data[2][i][3],data[2][i+1][3]),
-        '|                                      |                                      |\n',
-        '|                                      |                                      |\n',
-        '|                                      |                                      |\n',
-        '|                                      |                                      |\n',
-        '|                                      |                                      |\n',
-        '+--------------------------------------+--------------------------------------+\n']
-        f = open(outputFileName, 'a')
-        f.writelines(lines)
-        count += 1
-        if count%3==0:
-            f.writelines(['\n','\n','\n'])
+i = 0
+writtenPages = 0
+while i < totalDays:
+    linesleft = ['+--------------------------------------+',
+    '|                                      |',
+    '|  {} {}               |'.format(data[1][i],data[0]),
+    '|                                      |',
+    '|<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>|',
+    '|                                      |',
+    '|  {} {}               |'.format(data[1][i],data[0]),
+    '|                                      |',
+    '|  Zero Dumps:                         |',
+    '|    {}     |'.format(data[2][i][0]),
+    '|    {}     |'.format(data[2][i][1]),
+    '|    {}     |'.format(data[2][i][2]),
+    '|    {}     |'.format(data[2][i][3]),
+    '|                                      |',
+    '|                                      |',
+    '|                                      |',
+    '|                                      |',
+    '|                                      |',
+    '+--------------------------------------+']
+    linesright = ['--------------------------------------+\n',
+    '                                      |\n',
+    '  {} {}               |\n'.format(data[1][(i+numberOfPages)%totalDays],data[0]),
+    '                                      |\n',
+    '<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>|\n',
+    '                                      |\n',
+    '  {} {}               |\n'.format(data[1][(i+numberOfPages)%totalDays],data[0]),
+    '                                      |\n',
+    '  Zero Dumps:                         |\n',
+    '    {}     |\n'.format(data[2][(i+numberOfPages)%totalDays][0]),
+    '    {}     |\n'.format(data[2][(i+numberOfPages)%totalDays][1]),
+    '    {}     |\n'.format(data[2][(i+numberOfPages)%totalDays][2]),
+    '    {}     |\n'.format(data[2][(i+numberOfPages)%totalDays][3]),
+    '                                      |\n',
+    '                                      |\n',
+    '                                      |\n',
+    '                                      |\n',
+    '                                      |\n',
+    '--------------------------------------+\n'
+    ]
+    label = list(zip(linesleft,linesright))
+    f = open(outputFileName, 'a')
+    for j in range(len(label)):
+        f.writelines(label[j])
+    i+= (2*numberOfPages)
+    count += 1
+    if count%3==0:
+        f.writelines(['\n','\n','\n'])
+        writtenPages +=1
+        i = writtenPages
+        if writtenPages == numberOfPages:
+            break
